@@ -1,5 +1,7 @@
 package lk.ijse.cmjd109.LostAndFoundApplication.controller;
 
+import java.util.List;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
+import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemStatus;
 
 @RestController
 @RequestMapping("/api/v1/item")
@@ -31,13 +35,14 @@ public class ItemController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public ResponseEntity<ItemDto> getLostItems(){
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ItemDto> getSelectedItem(@RequestParam("reportId") String reportId){
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<ItemDto> getFoundItems(){
+    @GetMapping("/getAll")
+    public ResponseEntity<List<ItemDto>> getAllItemsOfSelectedGroup(ItemStatus itemStatus){
         return ResponseEntity.ok().build();
     }
+
 }
