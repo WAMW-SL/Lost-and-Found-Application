@@ -1,0 +1,23 @@
+package lk.ijse.cmjd109.LostAndFoundApplication.dto;
+
+import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class ItemDto {
+    private String reportId;
+    private String itemName;
+    private String description;
+    private String brand;
+    private String colour;
+    private LocalDate foundDate;
+    private LocalDate lastSeenDate;
+    private String foundLocation;
+    private String lastSeenLocation;
+    private String privateDetails;
+    private ItemStatus itemStatus;
+}
