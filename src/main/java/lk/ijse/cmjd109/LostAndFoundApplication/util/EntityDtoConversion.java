@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.stereotype.Component;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.entities.ItemEntity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Component
 public class EntityDtoConversion {
     private final ModelMapper modelMapper;
 

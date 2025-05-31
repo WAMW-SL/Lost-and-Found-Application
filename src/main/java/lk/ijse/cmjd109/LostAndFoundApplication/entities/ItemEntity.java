@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemCategory;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Item")
+@Table(name = "Item")
 public class ItemEntity {
     @Id
     private String reportId;
@@ -24,8 +25,10 @@ public class ItemEntity {
     private String description;
     private String brand;
     private String colour;
-    private LocalDate foundDate_Or_lastSeentDate;
-    private String foundLocation_Or_lastSeenLocation;
+    private LocalDate foundDate;
+    private LocalDate lastSeenDate;
+    private String foundLocation;
+    private String lastSeenLocation;
     private String privateDetails;
     private ItemStatus status;
 }
