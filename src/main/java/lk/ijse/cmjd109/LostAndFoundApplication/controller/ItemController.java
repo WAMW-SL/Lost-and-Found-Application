@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemStatus;
+import lk.ijse.cmjd109.LostAndFoundApplication.exception.ReportNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.service.ItemService;
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +42,16 @@ public class ItemController {
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateReport(@RequestBody ItemDto itemDto) {
-        return ResponseEntity.ok().build();
+        try {
+            itemService.updateReport(itemDto);
+            return ResponseEntity.ok().build();        
+        } catch (ReportNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping("/{reportId}")
