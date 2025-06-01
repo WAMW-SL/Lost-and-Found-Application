@@ -1,5 +1,6 @@
 package lk.ijse.cmjd109.LostAndFoundApplication.service.impl;
 
+import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +52,11 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public void deleteReport(String reportId) {
-        
+        Optional<ItemEntity> foundReport=itemDao.findById(reportId);
+        if(!foundReport.isPresent()){
+          throw new ReportNotFoundException("Report not found");
+        }
+        itemDao.deleteById(reportId);
     }
 
     @Override
