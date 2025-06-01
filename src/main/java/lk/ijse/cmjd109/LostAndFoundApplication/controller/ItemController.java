@@ -63,7 +63,7 @@ public class ItemController {
         } catch (ReportNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -76,15 +76,20 @@ public class ItemController {
         } catch (ItemNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<ItemDto>> getAllItemsOfSelectedGroup(ItemStatus itemStatus) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<ItemDto>> getAllItemsOfSelectedGroup(@RequestParam("itemStatus") ItemStatus itemStatus) {
+        try {
+            return new ResponseEntity<List<ItemDto>>(itemService.getAllItemsOfSelectedGroup(itemStatus), HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

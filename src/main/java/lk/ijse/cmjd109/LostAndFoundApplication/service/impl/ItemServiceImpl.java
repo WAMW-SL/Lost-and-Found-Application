@@ -71,7 +71,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<ItemDto> getAllItemsOfSelectedGroup(ItemStatus itemStatus) {
-       return null;
+      return entityDtoConversion.toItemDtoList(itemDao.getAllItemsOfSelectedGroup(itemStatus));
     }
     
 }
