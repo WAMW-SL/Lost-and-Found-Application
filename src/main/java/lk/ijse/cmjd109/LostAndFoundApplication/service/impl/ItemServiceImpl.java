@@ -11,6 +11,7 @@ import lk.ijse.cmjd109.LostAndFoundApplication.dao.ItemDao;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemStatus;
 import lk.ijse.cmjd109.LostAndFoundApplication.entities.ItemEntity;
+import lk.ijse.cmjd109.LostAndFoundApplication.exception.ItemNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.exception.ReportNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.service.ItemService;
 import lk.ijse.cmjd109.LostAndFoundApplication.util.EntityDtoConversion;
@@ -61,7 +62,11 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemDto getSelectedItem(String reportId) {
-        return null;
+        Optional<ItemEntity> foundReport=itemDao.findById(reportId);
+        if(!foundReport.isPresent()){
+          throw new ItemNotFoundException("Item not found");
+        }
+        return entityDtoConversion.toItemDto(foundReport.get());
     }
 
     @Override
