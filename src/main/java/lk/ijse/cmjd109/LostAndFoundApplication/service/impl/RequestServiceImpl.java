@@ -42,7 +42,11 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public void deleteRequest(String requestId) {
-
+        Optional<RequestEntity> foundRequest=requestDao.findById(requestId);
+        if(!foundRequest.isPresent()){
+            throw new RequestNotFoundException("Request not found");
+        }
+        requestDao.deleteById(requestId);
     }
 
     @Override
