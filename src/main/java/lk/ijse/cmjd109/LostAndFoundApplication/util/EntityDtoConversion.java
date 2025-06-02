@@ -7,7 +7,9 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
+import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.entities.ItemEntity;
+import lk.ijse.cmjd109.LostAndFoundApplication.entities.RequestEntity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,5 +26,16 @@ public class EntityDtoConversion {
     }
     public List<ItemDto> toItemDtoList(List<ItemEntity> itemEntities){
         return modelMapper.map(itemEntities,new TypeToken<List<ItemDto>>(){}.getType());
+    }
+
+    //Request
+    public RequestEntity toRequestEntity(RequestDto requestDto){
+        return modelMapper.map(requestDto,RequestEntity.class);
+    }
+    public RequestDto toRequestDto(RequestEntity requestEntity){
+        return modelMapper.map(requestEntity,RequestDto.class);
+    }
+    public List<RequestDto> toRequestDtoList(List<RequestEntity> requestEntities){
+        return modelMapper.map(requestEntities, new TypeToken<List<RequestDto>>(){}.getType());
     }
 }
