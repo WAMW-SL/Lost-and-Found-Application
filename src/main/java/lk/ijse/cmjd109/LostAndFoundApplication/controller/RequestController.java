@@ -69,7 +69,15 @@ public class RequestController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RequestDto> getSelectedRequest(@Param ("requestId") String requestId){
-        return ResponseEntity.ok().build();
+        try {
+           return new ResponseEntity<RequestDto>(requestService.getSelectedRequest(requestId), HttpStatus.OK);
+        } catch (RequestNotFoundException e) {
+           e.printStackTrace();
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping(value="/getAll/{requestStatus}",produces = MediaType.APPLICATION_JSON_VALUE)

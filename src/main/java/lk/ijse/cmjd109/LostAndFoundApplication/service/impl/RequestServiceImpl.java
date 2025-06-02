@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class RequestServiceImpl implements RequestService{
+public class RequestServiceImpl implements RequestService {
 
     private final EntityDtoConversion entityDtoConversion;
     private final RequestDao requestDao;
@@ -32,8 +32,8 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public void updateRequest(RequestDto requestDto) {
-        Optional<RequestEntity> foundRequest=requestDao.findById(requestDto.getRequestId());
-        if(!foundRequest.isPresent()){
+        Optional<RequestEntity> foundRequest = requestDao.findById(requestDto.getRequestId());
+        if (!foundRequest.isPresent()) {
             throw new RequestNotFoundException("Request not found");
         }
         foundRequest.get().setFullDescription(requestDto.getFullDescription());
@@ -42,8 +42,8 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public void deleteRequest(String requestId) {
-        Optional<RequestEntity> foundRequest=requestDao.findById(requestId);
-        if(!foundRequest.isPresent()){
+        Optional<RequestEntity> foundRequest = requestDao.findById(requestId);
+        if (!foundRequest.isPresent()) {
             throw new RequestNotFoundException("Request not found");
         }
         requestDao.deleteById(requestId);
@@ -51,12 +51,16 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public RequestDto getSelectedRequest(String requestId) {
-        return null;
+        Optional<RequestEntity> foundRequest = requestDao.findById(requestId);
+        if (!foundRequest.isPresent()) {
+            throw new RequestNotFoundException("Request not found");
+        }
+        return entityDtoConversion.toRequestDto(requestDao.getReferenceById(requestId));
     }
 
     @Override
     public List<RequestDto> getAllRequestsOfSelectedGroup(RequestStatus requestStatus) {
         return null;
     }
-    
+
 }
