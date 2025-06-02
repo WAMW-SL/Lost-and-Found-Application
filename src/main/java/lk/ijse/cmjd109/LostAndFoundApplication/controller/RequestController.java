@@ -17,14 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestStatus;
+import lk.ijse.cmjd109.LostAndFoundApplication.service.RequestService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/request")
+@RequiredArgsConstructor
 public class RequestController {
+
+    private final RequestService requestService;
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addRequest(@RequestBody RequestDto requestDto){
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        try {
+           requestService.addRequest(requestDto);
+           return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
