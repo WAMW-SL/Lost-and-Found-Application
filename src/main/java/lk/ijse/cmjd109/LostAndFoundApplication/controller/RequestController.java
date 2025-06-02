@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestStatus;
+import lk.ijse.cmjd109.LostAndFoundApplication.exception.RequestNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.service.RequestService;
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +41,16 @@ public class RequestController {
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateRequest(@RequestBody RequestDto requestDto){
-        return ResponseEntity.status(HttpStatus.OK).build();
+        try {
+            requestService.updateRequest(requestDto);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (RequestNotFoundException e) {
+           e.printStackTrace();
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping("/{requestId}")
