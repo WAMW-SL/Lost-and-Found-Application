@@ -82,6 +82,11 @@ public class RequestController {
 
     @GetMapping(value="/getAll/{requestStatus}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RequestDto>> getAllRequestsOfSelectedGroup(@PathVariable RequestStatus requestStatus){
-        return ResponseEntity.ok().build();
+       try {
+         return new ResponseEntity<List<RequestDto>>(requestService.getAllRequestsOfSelectedGroup(requestStatus), HttpStatus.OK);
+       } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+       }
     }
 }

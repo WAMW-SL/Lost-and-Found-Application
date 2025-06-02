@@ -60,7 +60,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<RequestDto> getAllRequestsOfSelectedGroup(RequestStatus requestStatus) {
-        return null;
+       return entityDtoConversion.toRequestDtoList(requestDao.getAllRequestsOfSelectedGroup(requestStatus));
     }
 
 }
