@@ -82,6 +82,11 @@ public class UserController {
 
     @GetMapping(value = "/getAll/{userRole}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserDto>> getAllUsersOfSelectedGroup(@PathVariable UserRole userRole) {
-        return ResponseEntity.status(HttpStatus.OK).build();
+        try {
+            return new ResponseEntity<List<UserDto>>(userService.getAllUsersOfSelectedGroup(userRole), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

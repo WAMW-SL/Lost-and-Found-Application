@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsersOfSelectedGroup(UserRole role) {
-        return null;
+        return entityDtoConversion.toUserDtoList(userDao.getAllUsersOfSelectedGroup(role));
     }
 
 }
