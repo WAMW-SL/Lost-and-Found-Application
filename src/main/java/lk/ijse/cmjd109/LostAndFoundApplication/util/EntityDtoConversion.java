@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.RequestDto;
+import lk.ijse.cmjd109.LostAndFoundApplication.dto.UserDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.entities.ItemEntity;
 import lk.ijse.cmjd109.LostAndFoundApplication.entities.RequestEntity;
+import lk.ijse.cmjd109.LostAndFoundApplication.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -37,5 +39,16 @@ public class EntityDtoConversion {
     }
     public List<RequestDto> toRequestDtoList(List<RequestEntity> requestEntities){
         return modelMapper.map(requestEntities, new TypeToken<List<RequestDto>>(){}.getType());
+    }
+
+    //User
+    public UserEntity toUserEntity(UserDto userDto){
+        return modelMapper.map(userDto,UserEntity.class);
+    }
+    public UserDto toUserDto(UserEntity userEntity){
+        return modelMapper.map(userEntity,UserDto.class);
+    }
+    public List<UserDto> toUserDtoList(List<UserEntity> userEntities){
+        return modelMapper.map(userEntities,new TypeToken<List<UserDto>>(){}.getType());
     }
 }
