@@ -1,17 +1,22 @@
 package lk.ijse.cmjd109.LostAndFoundApplication.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lk.ijse.cmjd109.LostAndFoundApplication.dao.UserDao;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.UserDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.UserRole;
+import lk.ijse.cmjd109.LostAndFoundApplication.entities.UserEntity;
+import lk.ijse.cmjd109.LostAndFoundApplication.exception.UserNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.service.UserService;
 import lk.ijse.cmjd109.LostAndFoundApplication.util.EntityDtoConversion;
 import lk.ijse.cmjd109.LostAndFoundApplication.util.UtilityData;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,7 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserDto userDto) {
-           
+        Optional<UserEntity> foundUser=userDao.findById(userDto.getUserId());
+        if(!foundUser.isPresent()){
+            throw new UserNotFoundException("User not found");
+        }
+        foundUser.get().setUserName(userDto.getUserName());
+        foundUser.get().setRole(userDto.getRole());
     }
 
     @Override

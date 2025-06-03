@@ -1,6 +1,5 @@
 package lk.ijse.cmjd109.LostAndFoundApplication.controller;
 
-
 import java.util.List;
 
 import org.springframework.data.repository.query.Param;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.UserDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.UserRole;
+import lk.ijse.cmjd109.LostAndFoundApplication.exception.UserNotFoundException;
 import lk.ijse.cmjd109.LostAndFoundApplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<Void> addUser(@RequestBody UserDto userDto) {
         try {
             userService.addUser(userDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -40,22 +40,31 @@ public class UserController {
     }
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateUser(UserDto userDto){
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<Void> updateUser(@RequestBody UserDto userDto) {
+        try {
+            userService.updateUser(userDto);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String userId){
+    public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDto> getSelectedUser(@Param("userId") String userId){
+    public ResponseEntity<UserDto> getSelectedUser(@Param("userId") String userId) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-    
-    @GetMapping(value = "/getAll/{userRole}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserDto>> getAllUsersOfSelectedGroup(@PathVariable UserRole userRole){
+
+    @GetMapping(value = "/getAll/{userRole}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserDto>> getAllUsersOfSelectedGroup(@PathVariable UserRole userRole) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
