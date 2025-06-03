@@ -47,7 +47,7 @@ public class UserController {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -55,7 +55,16 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
