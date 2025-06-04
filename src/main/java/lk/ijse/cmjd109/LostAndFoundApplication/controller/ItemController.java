@@ -3,6 +3,7 @@ package lk.ijse.cmjd109.LostAndFoundApplication.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -86,6 +87,16 @@ public class ItemController {
         try {
             return new ResponseEntity<List<ItemDto>>(itemService.getAllItemsOfSelectedGroup(itemStatus), HttpStatus.OK);
         }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/getAllReports")
+    public ResponseEntity<List<ItemDto>> getAllReports(){
+        try {
+            return new ResponseEntity<List<ItemDto>>(itemService.getAllReports(), HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

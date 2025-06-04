@@ -11,4 +11,5 @@ public interface ItemService {
     public void deleteReport(String reportId);
     public ItemDto getSelectedItem(String reportId);
     public List<ItemDto> getAllItemsOfSelectedGroup(ItemStatus itemStatus);
+    public List<ItemDto> getAllReports();
 }

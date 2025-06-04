@@ -72,5 +72,10 @@ public class ItemServiceImpl implements ItemService{
     public List<ItemDto> getAllItemsOfSelectedGroup(ItemStatus itemStatus) {
       return entityDtoConversion.toItemDtoList(itemDao.getAllItemsOfSelectedGroup(itemStatus));
     }
+
+    @Override
+    public List<ItemDto> getAllReports() {
+      return entityDtoConversion.toItemDtoList(itemDao.findAll());
+    }
     
 }
