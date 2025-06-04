@@ -34,7 +34,7 @@ public class ItemController {
     public ResponseEntity<Void> addReport(@RequestBody ItemDto itemDto) {
         try {
             itemService.addReport(itemDto);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -82,7 +82,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/getAll")
+    @GetMapping(value="/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ItemDto>> getAllItemsOfSelectedGroup(@RequestParam("itemStatus") ItemStatus itemStatus) {
         try {
             return new ResponseEntity<List<ItemDto>>(itemService.getAllItemsOfSelectedGroup(itemStatus), HttpStatus.OK);

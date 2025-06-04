@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ItemDto implements Serializable {
     private String reportId;
+    private String userId;
     private String itemName;
     private ItemCategory category;
     private String description;
