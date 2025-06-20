@@ -63,4 +63,9 @@ public class RequestServiceImpl implements RequestService {
        return entityDtoConversion.toRequestDtoList(requestDao.getAllRequestsOfSelectedGroup(requestStatus));
     }
 
+    @Override
+    public List<RequestDto> getAllRequests() {
+        return entityDtoConversion.toRequestDtoList(requestDao.findAll());
+    }
+
 }

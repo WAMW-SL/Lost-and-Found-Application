@@ -88,4 +88,14 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
        }
     }
+
+    @GetMapping(value = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RequestDto>> getAllRequests(){
+        try {
+            return new ResponseEntity<List<RequestDto>>(requestService.getAllRequests(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
