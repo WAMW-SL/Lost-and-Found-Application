@@ -6,7 +6,7 @@ import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemDto;
 import lk.ijse.cmjd109.LostAndFoundApplication.dto.ItemStatus;
 
 public interface ItemService {
-    void addReport(ItemDto itemDto);
+    ItemDto addReport(ItemDto itemDto);
     void updateReport(ItemDto itemDto);
     void deleteReport(String reportId);
     ItemDto getSelectedItem(String reportId);

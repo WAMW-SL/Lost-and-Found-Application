@@ -29,10 +29,9 @@ public class RequestController {
     private final RequestService requestService;
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addRequest(@RequestBody RequestDto requestDto){
+    public ResponseEntity<RequestDto> addRequest(@RequestBody RequestDto requestDto){
         try {
-           requestService.addRequest(requestDto);
-           return ResponseEntity.status(HttpStatus.CREATED).build();
+           return new ResponseEntity<RequestDto>(requestService.addRequest(requestDto), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

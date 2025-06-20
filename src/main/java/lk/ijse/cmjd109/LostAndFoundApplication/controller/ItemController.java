@@ -3,7 +3,6 @@ package lk.ijse.cmjd109.LostAndFoundApplication.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,10 +30,9 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addReport(@RequestBody ItemDto itemDto) {
-        try {
-            itemService.addReport(itemDto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ItemDto> addReport(@RequestBody ItemDto itemDto) {
+        try {;
+            return new ResponseEntity<ItemDto>(itemService.addReport(itemDto), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

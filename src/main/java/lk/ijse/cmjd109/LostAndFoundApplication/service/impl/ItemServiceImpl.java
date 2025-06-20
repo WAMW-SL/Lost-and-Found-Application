@@ -26,9 +26,9 @@ public class ItemServiceImpl implements ItemService{
     private final EntityDtoConversion entityDtoConversion;
 
     @Override
-    public void addReport(ItemDto itemDto) {
+    public ItemDto addReport(ItemDto itemDto) {
             itemDto.setReportId(UtilityData.generateReportId());  
-            itemDao.save(entityDtoConversion.toItemEntity(itemDto));
+            return entityDtoConversion.toItemDto(itemDao.save(entityDtoConversion.toItemEntity(itemDto)));
     }
 
     @Override

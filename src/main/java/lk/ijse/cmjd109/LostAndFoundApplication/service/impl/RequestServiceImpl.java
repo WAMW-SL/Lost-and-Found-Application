@@ -25,9 +25,9 @@ public class RequestServiceImpl implements RequestService {
     private final RequestDao requestDao;
 
     @Override
-    public void addRequest(RequestDto requestDto) {
+    public RequestDto addRequest(RequestDto requestDto) {
         requestDto.setRequestId(UtilityData.generateRequestId());
-        requestDao.save(entityDtoConversion.toRequestEntity(requestDto));
+        return entityDtoConversion.toRequestDto(requestDao.save(entityDtoConversion.toRequestEntity(requestDto)));
     }
 
     @Override

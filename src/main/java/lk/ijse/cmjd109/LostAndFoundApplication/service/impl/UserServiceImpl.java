@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
     @Override
-    public void addUser(UserDto userDto) {
+    public UserDto addUser(UserDto userDto) {
         userDto.setUserId(UtilityData.generateUserId());
-        userDao.save(entityDtoConversion.toUserEntity(userDto));
+        return entityDtoConversion.toUserDto(userDao.save(entityDtoConversion.toUserEntity(userDto)));
     }
 
     @Override

@@ -29,10 +29,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         try {
-            userService.addUser(userDto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return new ResponseEntity<UserDto>(userService.addUser(userDto), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
