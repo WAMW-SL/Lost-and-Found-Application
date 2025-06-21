@@ -21,7 +21,7 @@ public class JWTUtils {
     @Value("${signature}")
     private String signature;
 
-    private Key key(){
+    private SecretKey key(){
        return Keys.hmacShaKeyFor(signature.getBytes());
     }
     public String generateToken(String username, Collection<? extends GrantedAuthority> authorities) {
@@ -35,5 +35,16 @@ public class JWTUtils {
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(key())
                 .compact();
+    }
+
+    public boolean validateToken(String token) {
+        try{
+            Jwts.parser()
+                    .verifyWith(key()).build().parse(token);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
