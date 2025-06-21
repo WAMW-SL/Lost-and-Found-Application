@@ -47,4 +47,11 @@ public class JWTUtils {
             return false;
         }
     }
+
+    public String getUserNameFrommToken(String token) {
+        return Jwts.parser()
+                .verifyWith(key()).build()
+                .parseSignedClaims(token)
+                .getPayload().getSubject();
+    }
 }
