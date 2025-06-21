@@ -1,4 +1,4 @@
-package lk.ijse.cmjd109.LostAndFoundApplication.config;
+package lk.ijse.cmjd109.LostAndFoundApplication.secureConfig;
 
 import java.util.List;
 
