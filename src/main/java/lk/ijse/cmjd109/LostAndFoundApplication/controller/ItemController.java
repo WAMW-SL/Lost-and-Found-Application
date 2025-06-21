@@ -93,6 +93,7 @@ public class ItemController {
     @GetMapping("/getAllReports")
     public ResponseEntity<List<ItemDto>> getAllReports(){
         try {
+            System.out.println(itemService.getAllReports());
             return new ResponseEntity<List<ItemDto>>(itemService.getAllReports(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
