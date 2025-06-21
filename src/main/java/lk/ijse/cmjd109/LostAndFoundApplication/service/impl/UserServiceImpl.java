@@ -63,4 +63,10 @@ public class UserServiceImpl implements UserService {
         return entityDtoConversion.toUserDtoList(userDao.getAllUsersOfSelectedGroup(role));
     }
 
+    @Override
+    public List<UserDto> getAllUsers() {
+        return entityDtoConversion.toUserDtoList(userDao.findAll());
+    }
+
+    
 }

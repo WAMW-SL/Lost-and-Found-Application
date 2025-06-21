@@ -11,4 +11,5 @@ public interface UserService {
     void deleteUser(String userId);
     UserDto getSelectedUser(String userId);
     List<UserDto> getAllUsersOfSelectedGroup(UserRole role);
-}
+    List<UserDto> getAllUsers();
+ }
